@@ -1,78 +1,55 @@
-# Makefile for slock - simple X display locker
-
-VERSION = 1.4
-
-# Customize these variables
-PREFIX = /usr/local
-MANPREFIX = ${PREFIX}/share/man
-
-# X11 path
-X11INC = /usr/X11R6/include
-X11LIB = /usr/X11R6/lib
-
-# Include libraries for X11, Xft (for fonts), and MagickWand (for image processing)
-LIBS = -L${X11LIB} -lX11 -lXext -lXrandr -lXft -lMagickWand -L/usr/lib -lMagickWand-7.Q16HDRI -lMagickCore-7.Q16HDRI
-
-# Include flags for X11, Xft, and MagickWand
-INCS = -I${X11INC} -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/pixman-1 -I/usr/include/cairo -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/pixman-1 -I/usr/include/cairo -I/usr/include/pixman-1 -flto -fno-plt
-
-# C compiler and flags
-CC = cc
-CFLAGS = -std=c99 -pedantic -Wall -Os ${INCS} ${LIBS} $(shell pkg-config --cflags MagickWand)
-
-# Compiler and linker flags
-CPPFLAGS = -DVERSION=\"${VERSION}\" -DXINERAMA
-
-# Installation commands
-INSTALL = install
-INSTALL_PROGRAM = ${INSTALL} -s -m 755
-INSTALL_DATA = ${INSTALL} -m 644
+# Compiler and flags
+CC = gcc
+CFLAGS = -Wall -Wextra -pedantic -std=c99 -Iinclude
+LDFLAGS = -lX11 -lXrandr -lXft
 
 # Directories
-SRC = slock.c
-OBJ = ${SRC:.c=.o}
+SRC_DIR = src
+OBJ_DIR = obj
+BIN_DIR = bin
+INCLUDE_DIR = include
+ASSETS_DIR = assets
+CONFIG_DIR = config
 
-# Targets
-all: options slock
+# Source and object files
+SRC = $(wildcard $(SRC_DIR)/*.c)
+OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 
-options:
-	@echo slock build options:
-	@echo "CFLAGS   = ${CFLAGS}"
-	@echo "CPPFLAGS = ${CPPFLAGS}"
-	@echo "CC       = ${CC}"
+# Target executable
+TARGET = $(BIN_DIR)/complex_dwm_slock
 
-${OBJ}: config.h config.mk
+# Install directories
+PREFIX = /usr/local
+BINDIR = $(PREFIX)/bin
+CONFDIR = /etc/complex_dwm_slock
 
-config.h:
-	@echo creating $@ from config.def.h
-	@cp config.def.h $@
+# Default target
+all: $(TARGET)
 
-config.mk:
-	@echo creating $@ from config.def.mk
-	@cp config.def.mk $@
+# Create the target executable
+$(TARGET): $(OBJ)
+	@mkdir -p $(BIN_DIR)
+	$(CC) $(OBJ) -o $(TARGET) $(LDFLAGS)
 
-slock: ${OBJ}
-	@echo CC -o $@
-	@${CC} -o $@ ${OBJ} ${CFLAGS} ${CPPFLAGS} ${LIBS}
+# Compile source files into object files
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(OBJ_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
 
+# Clean up the build artifacts
 clean:
-	@echo cleaning
-	@rm -f slock ${OBJ}
+	rm -rf $(OBJ_DIR) $(BIN_DIR)
 
+# Install the executable and configuration files
 install: all
-	@echo installing executable file to ${DESTDIR}${PREFIX}/bin
-	@mkdir -p ${DESTDIR}${PREFIX}/bin
-	@cp -f slock ${DESTDIR}${PREFIX}/bin
-	@chmod 755 ${DESTDIR}${PREFIX}/bin/slock
-	@echo installing manual page to ${DESTDIR}${MANPREFIX}/man1
-	@mkdir -p ${DESTDIR}${MANPREFIX}/man1
-	@sed "s/VERSION/${VERSION}/g" < slock.1 > ${DESTDIR}${MANPREFIX}/man1/slock.1
-	@chmod 644 ${DESTDIR}${MANPREFIX}/man1/slock.1
+	@mkdir -p $(BINDIR) $(CONFDIR)
+	cp -f $(TARGET) $(BINDIR)
+	cp -f $(CONFIG_DIR)/* $(CONFDIR)
 
+# Uninstall the executable and configuration files
 uninstall:
-	@echo removing executable file from ${DESTDIR}${PREFIX}/bin
-	@rm -f ${DESTDIR}${PREFIX}/bin/slock
-	@echo removing manual page from ${DESTDIR}${MANPREFIX}/man1
-	@rm -f ${DESTDIR}${MANPREFIX}/man1/slock.1
+	rm -f $(BINDIR)/complex_dwm_slock
+	rm -rf $(CONFDIR)
 
-.PHONY: all options clean install uninstall
+# PHONY targets
+.PHONY: all clean install uninstall
