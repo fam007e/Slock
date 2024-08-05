@@ -23,10 +23,10 @@
 ### Building from Source
 
 1. **Clone the Repository**
-   ```bash
-   git clone https://github.com/yourusername/complex_dwm_slock.git
-   cd complex_dwm_slock
-   ```
+  ```bash
+  git clone https://github.com/yourusername/complex_dwm_slock.git
+  cd complex_dwm_slock
+  ```
 
 2. **Compile the Source Code**
   ```bash
