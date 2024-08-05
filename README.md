@@ -1,6 +1,6 @@
 # Complex DWM Slock
 
-`complex_dwm_slock` is an enhanced screen locker for DWM (Dynamic Window Manager). It provides a visually
+`Complex_DWM_SLock` is an enhanced screen locker for DWM (Dynamic Window Manager). It provides a visually
  appealing lock screen with features such as screen blur, time display, and user-friendly password prompts.
 
 ## Features
@@ -24,8 +24,8 @@
 
 1. **Clone the Repository**
   ```bash
-  git clone https://github.com/yourusername/complex_dwm_slock.git
-  cd complex_dwm_slock
+  git clone https://github.com/yourusername/Complex_DWM_SLock.git
+  cd Complex_DWM_SLock
   ```
 
 2. **Compile the Source Code**
@@ -45,7 +45,7 @@
 
 ## Configuration
 
-Configuration for `complex_dwm_slock` can be adjusted via the `config/slock.conf` file. Edit this file to
+Configuration for `Complex_DWM_SLock` can be adjusted via the `config/slock.conf` file. Edit this file to
 change settings like username display, blur level, and maximum password attempts. 
  
   ```ini
@@ -63,7 +63,7 @@ change settings like username display, blur level, and maximum password attempts
 To start the screen locker, simply run:
 
   ```bash
-  complex_dwm_slock
+  Complex_DWM_SLock
   ```
 
 **Command-line Options**
@@ -103,7 +103,7 @@ This project is licensed under the MIT License. See the [`LICENSE`](LICENSE) fil
 
 ## Acknowledgments
 
-I would like to thank the following projects and resources that inspired and aided in the development of `complex_dwm_slock`:
+I would like to thank the following projects and resources that inspired and aided in the development of `Complex_DWM_SLock`:
 
 - [slock](https://tools.suckless.org/slock/) - The simple X screen locker that served as the base and inspiration for this project.
 - [dwm](https://dwm.suckless.org/) - The dynamic window manager that seamlessly integrates with `slock`.
@@ -115,7 +115,7 @@ Special thanks to the open-source community for their invaluable contributions a
 
 ### Explanation
 
-- **Introduction**: The README starts with a brief description of the `complex_dwm_slock` project and its main features.
+- **Introduction**: The README starts with a brief description of the `Complex_DWM_SLock` project and its main features.
 - **Installation**: Provides detailed steps for installing the project from source, including prerequisites and build instructions.
 - **Configuration**: Describes how to configure the application via a configuration file.
 - **Usage**: Instructions for running the application, with a brief description of command-line options.
@@ -127,5 +127,5 @@ Special thanks to the open-source community for their invaluable contributions a
 - **Acknowledgments**: Credits the original `slock` and other inspirations.
 
 This README should provide users with a comprehensive understanding of how to install, configure, and use your
-`complex_dwm_slock` application.
+`Complex_DWM_SLock` application.
 
