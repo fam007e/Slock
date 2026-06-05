@@ -1,10 +1,21 @@
-# Compiled binaries and objects
+# ── Build artefacts ──────────────────────────────────────────────────────
 slock
 obj/
 
-# Packaging files
+# ── AUR packaging ────────────────────────────────────────────────────────
 pkg/
-src/
 *.pkg.tar.zst
 PKGBUILD
 .SRCINFO
+
+# ── Editor / IDE ─────────────────────────────────────────────────────────
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+*.iml
+
+# ── OS noise ─────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
